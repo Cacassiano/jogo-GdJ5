@@ -1,25 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://wokhsuqldlyn"]
+[gd_scene load_steps=5 format=3 uid="uid://wokhsuqldlyn"]
 
-[ext_resource type="PackedScene" uid="uid://bvn7ju66bc3st" path="res://Cenas/SalaChao.tscn" id="1_k74ne"]
+[ext_resource type="Texture2D" uid="uid://nhljhq3pkv42" path="res://Assets/icon.svg" id="1_675i2"]
 [ext_resource type="PackedScene" uid="uid://bcxe88c048edy" path="res://Cenas/player.tscn" id="1_qolql"]
-[ext_resource type="Script" uid="uid://iexgmm1s22ec" path="res://Scripts/Camera2d.cs" id="4_n6gaj"]
+[ext_resource type="PackedScene" uid="uid://b7c8mt2w78acq" path="res://Cenas/inimigo.tscn" id="3_k74ne"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_k74ne"]
+vertices = PackedVector2Array(1137.04, 5.96875, 1139.95, 712.039, 6.02344, 716.953, 7.96875, 3.02344)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1147, -4, 1150, 722, -4, 727, -2, -7)])
 
 [node name="Main" type="Node2D"]
 
-[node name="ChaoSalas" type="Node" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(570.5, 253)
+scale = Vector2(10.3516, 10)
+texture = ExtResource("1_675i2")
 
-[node name="Sala chao" parent="ChaoSalas" instance=ExtResource("1_k74ne")]
-position = Vector2(578, 366)
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_k74ne")
 
-[node name="Sala chao2" parent="ChaoSalas" instance=ExtResource("1_k74ne")]
-position = Vector2(1713, 363)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("4_n6gaj")
+[node name="Inimigo" parent="." node_paths=PackedStringArray("PlayerScene") instance=ExtResource("3_k74ne")]
+position = Vector2(1051, 635)
+PlayerScene = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("1_qolql")]
-z_index = 2
-position = Vector2(629, 195)
-
-[connection signal="SwapRoom" from="ChaoSalas/Sala chao" to="Camera2D" method="_SwapRoom"]
-[connection signal="SwapRoom" from="ChaoSalas/Sala chao2" to="Camera2D" method="_SwapRoom"]
+position = Vector2(203, 192)
