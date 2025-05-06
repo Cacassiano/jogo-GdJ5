@@ -1,14 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://wokhsuqldlyn"]
+[gd_scene load_steps=4 format=3 uid="uid://wokhsuqldlyn"]
 
-[ext_resource type="Texture2D" uid="uid://nhljhq3pkv42" path="res://Assets/icon.svg" id="1_675i2"]
+[ext_resource type="PackedScene" uid="uid://bvn7ju66bc3st" path="res://Cenas/SalaChao.tscn" id="1_k74ne"]
 [ext_resource type="PackedScene" uid="uid://bcxe88c048edy" path="res://Cenas/player.tscn" id="1_qolql"]
+[ext_resource type="Script" uid="uid://iexgmm1s22ec" path="res://Scripts/Camera2d.cs" id="4_n6gaj"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(593, 253)
-scale = Vector2(10, 10)
-texture = ExtResource("1_675i2")
+[node name="ChaoSalas" type="Node" parent="."]
+
+[node name="Sala chao" parent="ChaoSalas" instance=ExtResource("1_k74ne")]
+position = Vector2(578, 366)
+
+[node name="Sala chao2" parent="ChaoSalas" instance=ExtResource("1_k74ne")]
+position = Vector2(1713, 363)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("4_n6gaj")
 
 [node name="Player" parent="." instance=ExtResource("1_qolql")]
-position = Vector2(620, 195)
+z_index = 2
+position = Vector2(629, 195)
+
+[connection signal="SwapRoom" from="ChaoSalas/Sala chao" to="Camera2D" method="_SwapRoom"]
+[connection signal="SwapRoom" from="ChaoSalas/Sala chao2" to="Camera2D" method="_SwapRoom"]
