@@ -1,36 +1,48 @@
 using Godot;
 using System;
 
-public partial class Player : Area2D
+public partial class Player : CharacterBody2D
 {
 	[Export]
 	public int Speed = 400;
 	[Export]
 	public float RunMulti = 2f;
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		var _velocity = new Vector2();
 
-		if (Input.IsActionPressed("MovDireita"))
+		var animacao = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
+		if(Input.IsActionPressed("MovBaixo"))
 		{
-			_velocity.X += 1;
+			animacao.Animation = "andandoDeFrente";
 		}
-		if (Input.IsActionPressed("MovEsquerda"))
+		else if(Input.IsActionPressed("MovDireita"))
 		{
-			_velocity.X -= 1;
+			animacao.Animation = "andandoDireita";
 		}
-		if (Input.IsActionPressed("MovBaixo"))
+		else if(Input.IsActionPressed("MovEsquerda"))
 		{
-			_velocity.Y += 1;
+			animacao.Animation = "andandoEsquerda";
 		}
-		if (Input.IsActionPressed("MovCima"))
+		else if(Input.IsActionPressed("MovCima"))
 		{
-			_velocity.Y -= 1;
+			animacao.Animation = "andandoCima";
 		}
-		int mySpeed = (Input.IsActionPressed("MovCorrer")) ? (int)(Speed*RunMulti) : Speed;
+		
+
+		_velocity = Input.GetVector("MovEsquerda","MovDireita", "MovCima", "MovBaixo");
+
+		if(_velocity==Vector2.Zero))
+		{
+			animacao.Animation="paradoDeFrente";
+		}	
+		int mySpeed = Input.IsActionPressed("MovCorrer") ? (int)(Speed*RunMulti) : Speed;
 		_velocity = _velocity.Normalized() * mySpeed;
 
-		Position += _velocity * (float)delta;
+		this.Velocity = _velocity * (float)delta;
+		animacao.Play();
+		MoveAndSlide();
 		
 	}
 }

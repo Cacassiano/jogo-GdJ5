@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7c8mt2w78acq"]
+
+[ext_resource type="Texture2D" uid="uid://nhljhq3pkv42" path="res://icon.svg" id="1_r4xcy"]
+[ext_resource type="Script" uid="uid://drr6mbb0ml4r4" path="res://Scripts/Inimigo.cs" id="1_y60ay"]
+[ext_resource type="Texture2D" uid="uid://brnx80owntr5q" path="res://Assets/inimigo/IMG_1024.PNG" id="3_duo5w"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y60ay"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_r4xcy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_duo5w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duo5w"]
+size = Vector2(128, 130)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_y60ay")
+Speed = 250
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y60ay")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_duo5w")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+simplify_path = true
