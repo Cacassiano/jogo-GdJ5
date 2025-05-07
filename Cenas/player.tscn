@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcxe88c048edy"]
+[gd_scene load_steps=6 format=3 uid="uid://bcxe88c048edy"]
 
 [ext_resource type="Script" uid="uid://mfint8jpe5a3" path="res://Scripts/Player.cs" id="1_pmvhq"]
 [ext_resource type="Texture2D" uid="uid://dg8ys843tkaep" path="res://Assets/personagem/personagem_frente.png" id="2_pmvhq"]
@@ -15,13 +15,21 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iersn"]
-size = Vector2(176, 92)
+size = Vector2(162, 76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmvhq"]
+size = Vector2(89, 47)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_pmvhq")
+metadata/_edit_lock_ = true
+
+[node name="cooldownAtack" type="Timer" parent="."]
+wait_time = 0.35
+one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 46)
+position = Vector2(0, -47)
 sprite_frames = SubResource("SpriteFrames_iersn")
 animation = &"paradoDeFrente"
 metadata/_edit_group_ = true
@@ -31,7 +39,7 @@ top_level = true
 light_mask = 1023
 visibility_layer = 1023
 z_index = 9
-position = Vector2(-1, 177)
+position = Vector2(-3, 94)
 shape = SubResource("RectangleShape2D_iersn")
 metadata/_edit_group_ = true
 
@@ -39,4 +47,15 @@ metadata/_edit_group_ = true
 wait_time = 0.75
 one_shot = true
 
+[node name="HITBOX" type="Area2D" parent="."]
+position = Vector2(0, -47)
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HITBOX"]
+position = Vector2(-1.5, 71)
+shape = SubResource("RectangleShape2D_pmvhq")
+debug_color = Color(0.977512, 0, 0.403538, 0.42)
+
+[connection signal="timeout" from="cooldownAtack" to="." method="_FimCoolDeAtack"]
 [connection signal="timeout" from="imortal" to="." method="_on_imortal_timeout"]
+[connection signal="body_entered" from="HITBOX" to="." method="_hit"]

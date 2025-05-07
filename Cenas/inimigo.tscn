@@ -7,29 +7,34 @@
 size = Vector2(128, 130)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y60ay"]
-size = Vector2(130, 131)
+size = Vector2(257, 260)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="InimigoMeelee" type="CharacterBody2D"]
 script = ExtResource("1_y60ay")
-Speed = 250
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+scale = Vector2(2, 2)
 texture = ExtResource("1_r4xcy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
+scale = Vector2(1.95, 1.95)
 shape = SubResource("RectangleShape2D_duo5w")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 simplify_path = true
 
-[node name="melee" type="Node2D" parent="."]
+[node name="Hitobox" type="Area2D" parent="."]
 
-[node name="HITBOX" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HITBOX"]
-position = Vector2(1, -1.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitobox"]
+position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_y60ay")
-debug_color = Color(0.977512, 0, 0.403538, 0.42)
+debug_color = Color(0.826799, 0.396066, 0.0332859, 0.42)
 
-[connection signal="body_entered" from="HITBOX" to="." method="_hit"]
+[node name="vendo" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-3, 3)
+scale = Vector2(8.6, 7.9)
+
+[connection signal="area_entered" from="Hitobox" to="." method="_TomeiBala"]
+[connection signal="screen_exited" from="vendo" to="." method="_TrocaASala"]

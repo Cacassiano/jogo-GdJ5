@@ -3,16 +3,16 @@ using System;
 
 public partial class Inimigo : CharacterBody2D
 {
-   
+    public String sala;
     [Export]
     public float DistanciaMinimaParaMovimentar = 50f;
-    [Signal]
-    public delegate void PlayerHitEventHandler(int Damage);
     [Export]
-    public int Speed = 400;
+    public Vector2 knockback = Vector2.Zero;
+    public int Speed = 575;
     [Export]
     public float RunMulti = 2f;
     public CharacterBody2D PlayerScene{ get; set; }
+    public Vector2 direction;
     public void _SetPlayerScene(CharacterBody2D player)
     {
         PlayerScene = player;
@@ -23,28 +23,6 @@ public partial class Inimigo : CharacterBody2D
     {
         agent = GetNode<NavigationAgent2D>("NavigationAgent2D");
     }
-    public override void _PhysicsProcess(double delta)
-    {
-        agent.TargetPosition = PlayerScene.GlobalPosition;
-        this.Velocity = GlobalPosition.DirectionTo(agent.GetNextPathPosition()) * Speed;
-
-        MoveAndSlide(); 
-    } 
-   [Export]
-    public float AttackRange = 30f;
-
-    [Export]
-    public float AttackCooldown = 1.5f;
-
-    [Export]
-    public int Damage = 1;
-
-    private float _attackTimer = 0;
-
-    private Node2D _player;
-    [Export]
-    public int vida = 5;
-
     public override void _Ready()
     {
         _player = GetNode<Node2D>("res://Cenas/player.tscn");
@@ -55,24 +33,54 @@ public partial class Inimigo : CharacterBody2D
         if (_player == null) return;
 
         float distance = GlobalPosition.DistanceTo(_player.GlobalPosition);
-        /*
-        _attackTimer -= (float)delta;
-
-        if (distance <= AttackRange && _attackTimer <= 0)
-        {
-            AttackPlayer();
-            _attackTimer = AttackCooldown;
-        }
-        */
     }
-
-    public void _hit(Node2D body)
+    public override void _PhysicsProcess(double delta)
     {
-        if (body is Player player)
+        agent.TargetPosition = PlayerScene.GlobalPosition;
+        if(knockback != Vector2.Zero)
         {
-            EmitSignal(SignalName.PlayerHit,Damage);
-            GD.Print("O inimigo atacou o jogador!");
+            this.Velocity = knockback * Speed;
+            knockback = Vector2.Zero;
+        }
+        else
+        {
+            direction = GlobalPosition.DirectionTo(agent.GetNextPathPosition()) * Speed;
+            this.Velocity = direction;
+        }
+
+        MoveAndSlide(); 
+    } 
+
+    public void _TrocaASala()
+    {
+        QueueFree();
+    }
+
+    public void _TomeiBala(Area2D bala)
+    {
+        if (bala is Projetil projetil)
+        {
+            GD.Print("Tomei uma bala");
+            vida -= projetil.Damage;
+            GD.Print("Vida do inimigo: " + vida);
+            if (vida <= 0)
+            {
+                QueueFree();
+            } 
+            else
+            {
+                knockback = projetil.direction;
+            }
         }
     }
+
+    [Export]
+    public int Damage = 1;
+
+    private Node2D _player;
+    [Export]
+    public int vida = 5;
+
+    
 
 }
