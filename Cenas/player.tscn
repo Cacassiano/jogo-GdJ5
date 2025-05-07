@@ -24,7 +24,19 @@ script = ExtResource("1_pmvhq")
 position = Vector2(0, 46)
 sprite_frames = SubResource("SpriteFrames_iersn")
 animation = &"paradoDeFrente"
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+top_level = true
+light_mask = 1023
+visibility_layer = 1023
+z_index = 9
 position = Vector2(-1, 177)
 shape = SubResource("RectangleShape2D_iersn")
+metadata/_edit_group_ = true
+
+[node name="imortal" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[connection signal="timeout" from="imortal" to="." method="_on_imortal_timeout"]
