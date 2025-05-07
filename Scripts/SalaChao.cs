@@ -13,7 +13,10 @@ public partial class SalaChao : Area2D
 
     public void _PlayerEntered(Node2D body) 
     {
-        EmitSignal(SignalName.SwapRoom, this);
-        GD.Print("Tocandp no chao ");
+        if (body is Player)
+        {
+            GD.Print("Player entrou na sala");
+            EmitSignal(SignalName.SwapRoom, this);
+        }   
     }
 }

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://wokhsuqldlyn"]
+[gd_scene load_steps=6 format=3 uid="uid://wokhsuqldlyn"]
 
-[ext_resource type="Texture2D" uid="uid://nhljhq3pkv42" path="res://Assets/icon.svg" id="1_675i2"]
+[ext_resource type="PackedScene" uid="uid://bvn7ju66bc3st" path="res://Cenas/SalaChao.tscn" id="1_k74ne"]
 [ext_resource type="PackedScene" uid="uid://bcxe88c048edy" path="res://Cenas/player.tscn" id="1_qolql"]
 [ext_resource type="PackedScene" uid="uid://b7c8mt2w78acq" path="res://Cenas/inimigo.tscn" id="3_k74ne"]
+[ext_resource type="Script" uid="uid://cpcy0g7asnafn" path="res://Scripts/MainCamera.cs" id="4_n6gaj"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_k74ne"]
 vertices = PackedVector2Array(1137.04, 5.96875, 1139.95, 712.039, 6.02344, 716.953, 7.96875, 3.02344)
@@ -11,17 +12,30 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1147, -4, 1150, 722, -4
 
 [node name="Main" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(570.5, 253)
-scale = Vector2(10.3516, 10)
-texture = ExtResource("1_675i2")
+[node name="Chaos" type="Node" parent="."]
+
+[node name="Sala chao2" parent="Chaos" instance=ExtResource("1_k74ne")]
+position = Vector2(1814, 365)
+
+[node name="Sala chao" parent="Chaos" instance=ExtResource("1_k74ne")]
+position = Vector2(577, 361)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_k74ne")
 
+[node name="Player" parent="." instance=ExtResource("1_qolql")]
+z_index = 5
+position = Vector2(203, 192)
+
 [node name="Inimigo" parent="." node_paths=PackedStringArray("PlayerScene") instance=ExtResource("3_k74ne")]
+z_index = 4
 position = Vector2(1051, 635)
 PlayerScene = NodePath("../Player")
 
-[node name="Player" parent="." instance=ExtResource("1_qolql")]
-position = Vector2(203, 192)
+[node name="MainCamera" type="Camera2D" parent="."]
+position = Vector2(577, 360)
+position_smoothing_enabled = true
+script = ExtResource("4_n6gaj")
+
+[connection signal="SwapRoom" from="Chaos/Sala chao2" to="MainCamera" method="_SwapRoom"]
+[connection signal="SwapRoom" from="Chaos/Sala chao" to="MainCamera" method="_SwapRoom"]

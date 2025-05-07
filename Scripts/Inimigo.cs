@@ -12,7 +12,7 @@ public partial class Inimigo : CharacterBody2D
     [Export]
     public float RunMulti = 2f;
     [Export]
-    public Area2D PlayerScene{ get; set; }
+    public CharacterBody2D PlayerScene{ get; set; }
     private NavigationAgent2D agent;
     public override void _Draw()
     {

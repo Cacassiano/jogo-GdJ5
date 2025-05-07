@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public partial class Player : Area2D
+public partial class Player : CharacterBody2D
 {
 	[Export]
 	public int Speed = 400;
 	[Export]
 	public float RunMulti = 2f;
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		var _velocity = new Vector2();
 
@@ -19,6 +19,4 @@ public partial class Player : Area2D
 		Position += _velocity * (float)delta;
 		
 	}
-
-	
 }
