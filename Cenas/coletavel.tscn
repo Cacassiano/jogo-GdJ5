@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://e3yp2qdliisn"]
+
+[ext_resource type="Texture2D" uid="uid://nhljhq3pkv42" path="res://Assets/icon.svg" id="1_52261"]
+[ext_resource type="Script" uid="uid://d2p5q6x4chbit" path="res://Scripts/Coletavel.cs" id="1_bsfm2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bsfm2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_52261")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6xivx"]
+radius = 68.0
+height = 136.0
+
+[node name="Coletavel" type="Area2D"]
+script = ExtResource("1_bsfm2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bsfm2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_6xivx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -16,7 +16,9 @@ public partial class Player : CharacterBody2D
 		int mySpeed = Input.IsActionPressed("MovCorrer") ? (int)(Speed*RunMulti) : Speed;
 		_velocity = _velocity.Normalized() * mySpeed;
 
-		Position += _velocity * (float)delta;
+		this.Velocity = _velocity * (float)delta;
+
+		MoveAndSlide();
 		
 	}
 }
