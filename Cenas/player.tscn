@@ -1,10 +1,134 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcxe88c048edy"]
+[gd_scene load_steps=21 format=3 uid="uid://bcxe88c048edy"]
 
 [ext_resource type="Script" uid="uid://mfint8jpe5a3" path="res://Scripts/Player.cs" id="1_pmvhq"]
+[ext_resource type="Texture2D" uid="uid://dnxavoysy5q6a" path="res://Assets/personagem/player/spr_playertras.PNG" id="2_2c22q"]
 [ext_resource type="Texture2D" uid="uid://dg8ys843tkaep" path="res://Assets/personagem/personagem_frente.png" id="2_pmvhq"]
+[ext_resource type="Texture2D" uid="uid://bu3d4uwxouuur" path="res://Assets/personagem/player/spr_playertrasanda1.PNG" id="3_vlk8b"]
+[ext_resource type="Texture2D" uid="uid://duh8d4ets8hrv" path="res://Assets/personagem/player/spr_playertrasanda2.PNG" id="4_had87"]
+[ext_resource type="Texture2D" uid="uid://dfxwpj0f2i1eb" path="res://Assets/personagem/player/spr_playerfrenteanda1.PNG" id="5_axwfv"]
+[ext_resource type="Texture2D" uid="uid://l4na4nr1pd5r" path="res://Assets/personagem/player/spr_playerfrenteanda2.PNG" id="6_8tubf"]
+[ext_resource type="Texture2D" uid="uid://baao3w5lnbdr0" path="res://Assets/personagem/player/spr_playerladoDanda1.PNG" id="7_a4yfx"]
+[ext_resource type="Texture2D" uid="uid://dadjxypdihrlm" path="res://Assets/personagem/player/spr_playerladoDanda2.PNG" id="8_alogn"]
+[ext_resource type="Texture2D" uid="uid://d3vjblf71j7fo" path="res://Assets/personagem/player/spr_playerladoDparado.PNG" id="9_4j5ex"]
+[ext_resource type="Texture2D" uid="uid://bdha2dvaynwhu" path="res://Assets/personagem/player/spr_playerladoEanda1.PNG" id="10_dj8y3"]
+[ext_resource type="Texture2D" uid="uid://c3e5c5a45t1xu" path="res://Assets/personagem/player/spr_playerladoEanda2.PNG" id="11_wh05g"]
+[ext_resource type="Texture2D" uid="uid://sfik3lwu6jkf" path="res://Assets/personagem/player/spr_playerladoEparado.PNG" id="12_8v2xp"]
+[ext_resource type="Texture2D" uid="uid://yl6njih5f73u" path="res://Assets/personagem/player/spr_playerfrenteatira.PNG" id="13_t7cd8"]
+[ext_resource type="Texture2D" uid="uid://bhidosakyfm3p" path="res://Assets/personagem/player/spr_playerladoDatira.PNG" id="14_sjhg2"]
+[ext_resource type="Texture2D" uid="uid://bwwn0rtlqgbhw" path="res://Assets/personagem/player/spr_playertrasatira.PNG" id="14_vlk8b"]
+[ext_resource type="Texture2D" uid="uid://fi7o4nlynyuo" path="res://Assets/personagem/player/spr_playerladoEatira.PNG" id="15_jnm6q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iersn"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_axwfv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8tubf")
+}],
+"loop": true,
+"name": &"andando_bai",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2c22q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vlk8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_had87")
+}],
+"loop": true,
+"name": &"andando_cima",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_a4yfx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_alogn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4j5ex")
+}],
+"loop": true,
+"name": &"andando_dir",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_dj8y3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_wh05g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8v2xp")
+}],
+"loop": true,
+"name": &"andando_esq",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_t7cd8")
+}],
+"loop": false,
+"name": &"ataque_bai",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_vlk8b")
+}],
+"loop": false,
+"name": &"ataque_cima",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_sjhg2")
+}],
+"loop": false,
+"name": &"ataque_dir",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_jnm6q")
+}],
+"loop": false,
+"name": &"ataque_esq",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2c22q")
+}],
+"loop": true,
+"name": &"paradoDeCostas",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_4j5ex")
+}],
+"loop": true,
+"name": &"paradoDeDireita",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_8v2xp")
+}],
+"loop": true,
+"name": &"paradoDeEsquerda",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_pmvhq")
@@ -15,12 +139,14 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iersn"]
-size = Vector2(162, 76)
+size = Vector2(146, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pmvhq"]
 size = Vector2(89, 47)
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 33
+collision_mask = 33
 script = ExtResource("1_pmvhq")
 metadata/_edit_lock_ = true
 
@@ -31,7 +157,7 @@ one_shot = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -47)
 sprite_frames = SubResource("SpriteFrames_iersn")
-animation = &"paradoDeFrente"
+animation = &"ataque_esq"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -39,17 +165,19 @@ top_level = true
 light_mask = 1023
 visibility_layer = 1023
 z_index = 9
-position = Vector2(-3, 94)
+position = Vector2(-3, 95)
 shape = SubResource("RectangleShape2D_iersn")
 metadata/_edit_group_ = true
 
 [node name="imortal" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 1.25
 one_shot = true
 
 [node name="HITBOX" type="Area2D" parent="."]
-position = Vector2(0, -47)
+position = Vector2(-1, -47)
 scale = Vector2(2, 2)
+collision_layer = 33
+collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HITBOX"]
 position = Vector2(-1.5, 71)
@@ -57,5 +185,7 @@ shape = SubResource("RectangleShape2D_pmvhq")
 debug_color = Color(0.977512, 0, 0.403538, 0.42)
 
 [connection signal="timeout" from="cooldownAtack" to="." method="_FimCoolDeAtack"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_FimTIro"]
 [connection signal="timeout" from="imortal" to="." method="_on_imortal_timeout"]
+[connection signal="area_entered" from="HITBOX" to="." method="_Trocar"]
 [connection signal="body_entered" from="HITBOX" to="." method="_hit"]

@@ -3,6 +3,9 @@ using System;
 
 public partial class Inimigo : CharacterBody2D
 {
+
+
+    public int id = 1;
     public String sala;
     [Export]
     public float DistanciaMinimaParaMovimentar = 50f;
@@ -39,7 +42,7 @@ public partial class Inimigo : CharacterBody2D
         agent.TargetPosition = PlayerScene.GlobalPosition;
         if(knockback != Vector2.Zero)
         {
-            this.Velocity = knockback * Speed;
+            this.Velocity = knockback * Speed * 1.5f;
             knockback = Vector2.Zero;
         }
         else

@@ -2,41 +2,153 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+
+
 public partial class Player : CharacterBody2D
 {
+
+    
+    public void _Trocar(Area2D area)
+    {
+        if (area is WarpE w)
+        {
+            GlobalPosition = w.markerGbP;
+        }
+    }
+
     [Export]
     public int Speed = 50000;
-    public List<string> salasVencidas;
     [Export]
     public float RunMulti = 2f;
-
     [Export]
     public int MaxHp = 8;
 
     private int _currentHp;
     private bool imortal = false;
     private bool podeAtacar = true;
+    private bool atirando = false;
+    public AnimatedSprite2D animacao;
     public override void _Ready()
     {
         _currentHp = MaxHp;
-        salasVencidas = new List<string>();
+        animacao = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+    }
+
+
+
+    private String horizontalDir(Vector2 direction)
+    {
+        if (direction.X < 0)
+        {
+            return "_esq";
+        }
+        else
+        {
+            return "_dir";
+        }
+    }
+
+    private String verticalDir(Vector2 direction)
+    {
+        if (direction.Y < 0)
+        {
+            return "_cima";
+        }
+        else
+        {
+            return "_bai";
+        }
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        var _velocity = Input.GetVector("MovEsquerda", "MovDireita", "MovCima", "MovBaixo");
+        var mouPos = GetGlobalMousePosition();
+        var direction = (mouPos - GlobalPosition).Normalized();
+        var dirH = horizontalDir(direction);
+        var dirV = verticalDir(direction);
+
+        String animation = "";
         if (Input.IsActionPressed("atirar") && podeAtacar)
         {
             shoot();
+            if(!atirando)
+            {
+                atirando = true;
+                if(Math.Abs(direction.X) < Math.Abs(direction.Y))
+                {
+                    animacao.Animation = "ataque" + dirV;
+                }
+                else
+                {
+                    animacao.Animation = "ataque" + dirH;
+                }
+                animacao.Play();
+            }
         }
-        var _velocity = Input.GetVector("MovEsquerda", "MovDireita", "MovCima", "MovBaixo");
-
+        if(!atirando)
+        {
+            if(_velocity == Vector2.Zero)
+            {
+                if(Math.Abs(direction.X) < Math.Abs(direction.Y))
+                {
+                    if(dirV == "_cima")
+                    {
+                        animation = "paradoDeCostas";
+                    }
+                    else
+                    {
+                        animation = "paradoDeFrente";
+                    } 
+                } 
+                else
+                {
+                    if(dirH == "_esq")
+                    {
+                        animation = "paradoDeEsquerda";
+                    }
+                    else
+                    {
+                        animation = "paradoDeDireita";
+                    } 
+                }
+            } 
+            else
+            {
+                if(Math.Abs(direction.X) < Math.Abs(direction.Y))
+                {
+                    animation = "andando" + dirV;
+                }
+                else
+                {
+                    animation = "andando" + dirH;
+                }
+            }
+            animacao.Animation = animation;
+            animacao.Play();
+        }
+ 
         int mySpeed = Input.IsActionPressed("MovCorrer") ? (int)(Speed * RunMulti) : Speed;
         _velocity = _velocity.Normalized() * mySpeed;
         this.Velocity = _velocity * (float)delta;
-        
+
         
         MoveAndSlide();
     }
+
+    /*public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("atirar") && podeAtacar)
+        {
+            shoot();
+            atirando = true;
+            var direction = (GetGlobalMousePosition() - GlobalPosition).Normalized();
+            var dirH = horizontalDir(direction);
+            var dirV = verticalDir(direction);
+
+            
+        }
+    }*/
 
     public void TakeDamage(int amount)
     {
@@ -75,6 +187,8 @@ public partial class Player : CharacterBody2D
         if(!imortal && body is Inimigo inimigo)
         {
             GetNode<Timer>("imortal").Start();
+            SetCollisionLayerValue(6, false);
+            SetCollisionMaskValue(6, false);
             GD.Print("Estou imortal");
             TakeDamage(inimigo.Damage);
             imortal = true;
@@ -86,8 +200,16 @@ public partial class Player : CharacterBody2D
     public void _on_imortal_timeout()
     {
         imortal = false;
+        SetCollisionLayerValue(6, true);
+        SetCollisionMaskValue(6, true);
         GD.Print("Não estou imortal");
     }
 
+    public void _FimTIro()
+    {
+        atirando = false;
+        GD.Print("Fim do tiro");
+        animacao.Stop();
+    }
 
 }
