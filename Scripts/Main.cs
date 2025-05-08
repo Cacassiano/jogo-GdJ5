@@ -55,6 +55,7 @@ public partial class Main : Node2D
         GetNode<Area2D>("SalaIni/Sala chao2").Name ="SalaPrincipal";
         GetNode<Area2D>("Sala2/Sala2").Name ="Sala2";
         GetNode<Area2D>("Sala3/Sala3").Name ="Sala3";
+        GetNode<Area2D>("Sala4/Sala4").Name ="Sala4";
         GetNode<Area2D>("Sala1/Sala1").Name = "Sala1";
         player.ZIndex = 10;
         
@@ -64,12 +65,15 @@ public partial class Main : Node2D
     {
         Inimigo[] enemy = new Inimigo[10];
         InimigoR[] enemyR = new InimigoR[10];
+        
+
         if(room.Name == "Sala1")
         {
             for (int i =0 ;i<room.inimigoM.Length; i++)
             {
                 if(room.inimigoM[i] == 1)
                 {
+                    GD.Print("Criandp inimigoR" + room.Name);
                     enemy[i] = (Inimigo) EnemyScene.Instantiate();
                     enemy[i]._SetPlayerScene(player);
                     enemy[i].sala = room.Name;
@@ -79,7 +83,8 @@ public partial class Main : Node2D
             }
             for (int i =0 ;i<room.inimigoR.Length; i++)
             {
-                if(room.inimigoM[i] == 2)
+                GD.Print("Criandp inimigoR" + room.Name);
+                if(room.inimigoR[i] == 2)
                 {
                     enemyR[i] = (InimigoR) InimigoRScene.Instantiate();
                     enemyR[i]._SetPlayerScene(player);
@@ -95,6 +100,7 @@ public partial class Main : Node2D
         {
             for (int i =0 ;i<room.inimigoM.Length; i++)
             {
+                GD.Print("Criandp inimigoR" + room.Name);
                 if(room.inimigoM[i] == 1)
                 {
                     enemy[i] = (Inimigo) EnemyScene.Instantiate();
@@ -108,7 +114,8 @@ public partial class Main : Node2D
             }
             for (int i =0 ;i<room.inimigoR.Length; i++)
             {
-                if(room.inimigoM[i] == 2)
+                GD.Print("Criandp inimigoR" + room.Name);
+                if(room.inimigoR[i] == 2)
                 {
                     enemyR[i] = (InimigoR) InimigoRScene.Instantiate();
                     enemyR[i]._SetPlayerScene(player);
@@ -122,6 +129,7 @@ public partial class Main : Node2D
         }
         else if(room.Name == "Sala3" )
         {
+            GD.Print("Criandp inimigoR" + room.Name);
             for (int i =0 ;i<room.inimigoM.Length; i++)
             {
                 if(room.inimigoM[i] == 1)
@@ -137,8 +145,44 @@ public partial class Main : Node2D
             }
             for (int i =0 ;i<room.inimigoR.Length; i++)
             {
-                if(room.inimigoM[i] == 2)
+                GD.Print("Criandp inimigoR" + room.Name);
+                if(room.inimigoR[i] == 2)
                 {
+                    enemyR[i] = (InimigoR) InimigoRScene.Instantiate();
+                    enemyR[i]._SetPlayerScene(player);
+                    enemyR[i].sala = room.Name;
+                    enemyR[i].Speed = (int)Random.Shared.NextInt64(400, 575);
+                    AddChild(enemyR[i]);
+                    enemyR[i].GlobalPosition = GetNode<Marker2D>(room.Name+"/inimigoR"+(i+1)).GlobalPosition;
+                }
+            }
+        }
+        else if(room.Name == "Sala4" )
+        {
+            GD.Print(room.inimigoM.Length);                
+            if (room.inimigoM.Length ==0 )
+            {
+                for (int i =0 ;i<room.inimigoM.Length; i++)
+                {
+                    if(room.inimigoM[i] == 1)
+                    {
+                        enemy[i] = (Inimigo) EnemyScene.Instantiate();
+                        enemy[i]._SetPlayerScene(player);
+                        enemy[i].sala = room.Name;
+                        AddChild(enemy[i]);
+                        enemy[i].Speed = (int)Random.Shared.NextInt64(400, 575);
+                        enemy[i].GlobalPosition = GetNode<Marker2D>(room.Name+"/inimigo"+(i+1)).GlobalPosition;
+                    }
+                }
+            }
+        
+            for (int i =0 ;i<room.inimigoR.Length; i++)
+            {
+                
+
+                if(room.inimigoR[i] == 2)
+                {
+                    GD.Print("Criandp inimigoR" + room.Name);
                     enemyR[i] = (InimigoR) InimigoRScene.Instantiate();
                     enemyR[i]._SetPlayerScene(player);
                     enemyR[i].sala = room.Name;

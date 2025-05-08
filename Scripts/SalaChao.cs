@@ -10,10 +10,10 @@ public partial class SalaChao : Area2D
     public delegate void MorreInimigoEventHandler(SalaChao room, int id);
 
     [Export]
-    public int[] inimigoM{get;set;}
+    public int[] inimigoM = new int[10];
 
     [Export]
-    public int[] inimigoR{get;set;}
+    public int[] inimigoR = new int[10];
     public override void _Ready()
     {
         GD.Print("Completed");
