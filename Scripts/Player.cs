@@ -28,6 +28,7 @@ public partial class Player : CharacterBody2D
     private bool podeAtacar = true;
     private bool atirando = false;
     public AnimatedSprite2D animacao;
+    private Vector2 gbBixo;
     public override void _Ready()
     {
         _currentHp = MaxHp;
@@ -154,7 +155,6 @@ public partial class Player : CharacterBody2D
     {
         _currentHp -= amount;
         GD.Print("HP do jogador: " + _currentHp);
-
         if (_currentHp <= 0)
         {
             Die();
@@ -189,6 +189,9 @@ public partial class Player : CharacterBody2D
             GetNode<Timer>("imortal").Start();
             SetCollisionLayerValue(6, false);
             SetCollisionMaskValue(6, false);
+
+            GetNode<Area2D>("HITBOX").SetCollisionLayerValue(7, false);
+            GetNode<Area2D>("HITBOX").SetCollisionMaskValue(7, false);
             GD.Print("Estou imortal");
             TakeDamage(inimigo.Damage);
             imortal = true;
@@ -202,6 +205,8 @@ public partial class Player : CharacterBody2D
         imortal = false;
         SetCollisionLayerValue(6, true);
         SetCollisionMaskValue(6, true);
+        GetNode<Area2D>("HITBOX").SetCollisionLayerValue(6, true);
+        GetNode<Area2D>("HITBOX").SetCollisionMaskValue(6, true);
         GD.Print("Não estou imortal");
     }
 

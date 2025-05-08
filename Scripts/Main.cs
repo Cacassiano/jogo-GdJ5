@@ -72,6 +72,7 @@ public partial class Main : Node2D
                     enemy[i] = (Inimigo) EnemyScene.Instantiate();
                     enemy[i]._SetPlayerScene(player);
                     enemy[i].sala = room.Name;
+                    enemy[i].Speed = (int)Random.Shared.NextInt64(400, 575);
                     AddChild(enemy[i]);
                     enemy[i].GlobalPosition = GetNode<Marker2D>("Sala2/inimigo"+(i+1)).GlobalPosition;
                 }

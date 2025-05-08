@@ -145,8 +145,8 @@ size = Vector2(146, 56)
 size = Vector2(89, 47)
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 33
-collision_mask = 33
+collision_layer = 49
+collision_mask = 97
 script = ExtResource("1_pmvhq")
 metadata/_edit_lock_ = true
 
@@ -176,8 +176,8 @@ one_shot = true
 [node name="HITBOX" type="Area2D" parent="."]
 position = Vector2(-1, -47)
 scale = Vector2(2, 2)
-collision_layer = 33
-collision_mask = 33
+collision_layer = 112
+collision_mask = 113
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HITBOX"]
 position = Vector2(-1.5, 71)
@@ -189,3 +189,4 @@ debug_color = Color(0.977512, 0, 0.403538, 0.42)
 [connection signal="timeout" from="imortal" to="." method="_on_imortal_timeout"]
 [connection signal="area_entered" from="HITBOX" to="." method="_Trocar"]
 [connection signal="body_entered" from="HITBOX" to="." method="_hit"]
+[connection signal="body_exited" from="HITBOX" to="." method="_Desgruda"]

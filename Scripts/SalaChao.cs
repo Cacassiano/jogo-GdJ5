@@ -28,10 +28,14 @@ public partial class SalaChao : Area2D
 
     public void _InimigoSaiu(Node2D body)
     {
-        GD.Print("Ele saiuu");
-        if(body is Inimigo)
+        if(body is Inimigo inimigo)
         {
-            EmitSignal(SignalName.MorreInimigo, this);
+            if (inimigo.vida <= 0)
+            {
+                GD.Print("Inimigo morreu");
+                EmitSignal(SignalName.MorreInimigo, this);
+            }
+            
         }
         
     }

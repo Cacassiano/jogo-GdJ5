@@ -13,9 +13,10 @@ public partial class Inimigo : CharacterBody2D
     public Vector2 knockback = Vector2.Zero;
     public int Speed = 575;
     [Export]
-    public float RunMulti = 2f;
+    public float RunMulti = 1f;
     public CharacterBody2D PlayerScene{ get; set; }
     public Vector2 direction;
+    public AnimatedSprite2D animacao;
     public void _SetPlayerScene(CharacterBody2D player)
     {
         PlayerScene = player;
@@ -29,6 +30,30 @@ public partial class Inimigo : CharacterBody2D
     public override void _Ready()
     {
         _player = GetNode<Node2D>("res://Cenas/player.tscn");
+        animacao = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+    }
+    private String horizontalDir(Vector2 direction)
+    {
+        if (direction.X < 0)
+        {
+            return "_esq";
+        }
+        else
+        {
+            return "_dir";
+        }
+    }
+
+    private String verticalDir(Vector2 direction)
+    {
+        if (direction.Y < 0)
+        {
+            return "_cima";
+        }
+        else
+        {
+            return "_bai";
+        }
     }
 
     public override void _Process(double delta)
@@ -39,7 +64,9 @@ public partial class Inimigo : CharacterBody2D
     }
     public override void _PhysicsProcess(double delta)
     {
+        
         agent.TargetPosition = PlayerScene.GlobalPosition;
+        Vector2 direcao = GlobalPosition.DirectionTo(agent.GetNextPathPosition());
         if(knockback != Vector2.Zero)
         {
             this.Velocity = knockback * Speed * 1.5f;
@@ -47,12 +74,29 @@ public partial class Inimigo : CharacterBody2D
         }
         else
         {
-            direction = GlobalPosition.DirectionTo(agent.GetNextPathPosition()) * Speed;
+            direction = direcao * Speed  * RunMulti;    
             this.Velocity = direction;
         }
+        var dirH = horizontalDir(direcao);
+        var dirV = verticalDir(direcao);
 
+        String animation = "";
+        if(Math.Abs(direction.X) < Math.Abs(direction.Y))
+        {
+            animation = "and" + dirV;
+        }
+        else
+        {
+            animation = "and" + dirH;
+        }
+        
+        animacao.Animation = animation;
+        animacao.Play();
+        RunMulti = 1f;
         MoveAndSlide(); 
     } 
+
+    
 
     public void _TrocaASala()
     {
@@ -75,6 +119,13 @@ public partial class Inimigo : CharacterBody2D
                 knockback = projetil.direction;
             }
         }
+        else if (bala.Name == "HITBOX")
+        {
+            GD.Print("Ataquei player");
+
+            RunMulti = -4f;
+        }
+
     }
 
     [Export]
