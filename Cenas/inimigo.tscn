@@ -1,36 +1,125 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7c8mt2w78acq"]
+[gd_scene load_steps=17 format=3 uid="uid://b7c8mt2w78acq"]
 
-[ext_resource type="Texture2D" uid="uid://nhljhq3pkv42" path="res://icon.svg" id="1_r4xcy"]
 [ext_resource type="Script" uid="uid://drr6mbb0ml4r4" path="res://Scripts/Inimigo.cs" id="1_y60ay"]
-[ext_resource type="Texture2D" uid="uid://brnx80owntr5q" path="res://Assets/inimigo/IMG_1024.PNG" id="3_duo5w"]
+[ext_resource type="Texture2D" uid="uid://b00wkle8rs5yu" path="res://Assets/inimigo/inimigo2/spr_inimigo2frenteanda1.PNG" id="2_dje4e"]
+[ext_resource type="Texture2D" uid="uid://bw6i7fb8v65nq" path="res://Assets/inimigo/inimigo2/spr_inimigo2frenteanda2.PNG" id="3_mouyk"]
+[ext_resource type="Texture2D" uid="uid://djstu6u335f34" path="res://Assets/inimigo/inimigo2/spr_inimigo2frenteanda3.PNG" id="4_fr7b7"]
+[ext_resource type="Texture2D" uid="uid://c5rfyq0w8x4bs" path="res://Assets/inimigo/inimigo2/spr_inimigo2trasanda1.PNG" id="5_v8vm1"]
+[ext_resource type="Texture2D" uid="uid://bm147mp7dbgsx" path="res://Assets/inimigo/inimigo2/spr_inimigo2trasanda2.PNG" id="6_dsl12"]
+[ext_resource type="Texture2D" uid="uid://gwxhsrk3w4bv" path="res://Assets/inimigo/inimigo2/spr_inimigo2trasanda3.PNG" id="7_c31b1"]
+[ext_resource type="Texture2D" uid="uid://csnl2hesf5sc5" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoDanda1.PNG" id="8_vxom8"]
+[ext_resource type="Texture2D" uid="uid://d3wdqupdicbsf" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoDanda2.PNG" id="9_eup4u"]
+[ext_resource type="Texture2D" uid="uid://cfssqkrv28787" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoDanda3.PNG" id="10_lixkv"]
+[ext_resource type="Texture2D" uid="uid://3wateyuy73yi" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoEanda1.PNG" id="11_q3bq1"]
+[ext_resource type="Texture2D" uid="uid://nouoj1p8q5u" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoEanda2.PNG" id="12_62sh0"]
+[ext_resource type="Texture2D" uid="uid://h0ifa2uw1e11" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoEanda3.PNG" id="13_simhi"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_y60ay"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duo5w"]
+size = Vector2(131.795, 133.333)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y60ay"]
+size = Vector2(257, 260)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihd5u"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_r4xcy")
+"texture": ExtResource("2_dje4e")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_duo5w")
+"texture": ExtResource("3_mouyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fr7b7")
 }],
+"loop": true,
+"name": &"and_bai",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_v8vm1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dsl12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_c31b1")
+}],
+"loop": true,
+"name": &"and_cima",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_vxom8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_eup4u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_lixkv")
+}],
+"loop": true,
+"name": &"and_dir",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_q3bq1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_62sh0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_simhi")
+}],
+"loop": true,
+"name": &"and_esq",
+"speed": 5.0
+}, {
+"frames": [],
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_duo5w"]
-size = Vector2(128, 130)
-
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="InimigoMeelee" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 32
 script = ExtResource("1_y60ay")
-Speed = 250
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_y60ay")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0.500004, -0.999999)
+scale = Vector2(1.95, 1.95)
 shape = SubResource("RectangleShape2D_duo5w")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 simplify_path = true
+
+[node name="Hitobox" type="Area2D" parent="."]
+scale = Vector2(0.95, 0.95)
+collision_layer = 32
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitobox"]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_y60ay")
+debug_color = Color(0.826799, 0.396066, 0.0332859, 0.42)
+
+[node name="vendo" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-3, 3)
+scale = Vector2(8.6, 7.9)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -43)
+sprite_frames = SubResource("SpriteFrames_ihd5u")
+animation = &"and_esq"
+
+[connection signal="area_entered" from="Hitobox" to="." method="_TomeiBala"]
+[connection signal="screen_exited" from="vendo" to="." method="_TrocaASala"]

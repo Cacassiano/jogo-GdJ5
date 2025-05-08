@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://e3yp2qdliisn"]
 
-[ext_resource type="Texture2D" uid="uid://nhljhq3pkv42" path="res://icon.svg" id="1_52261"]
+[ext_resource type="Texture2D" uid="uid://nhljhq3pkv42" path="res://Assets/icon.svg" id="1_52261"]
 [ext_resource type="Script" uid="uid://d2p5q6x4chbit" path="res://Scripts/Coletavel.cs" id="1_bsfm2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bsfm2"]
