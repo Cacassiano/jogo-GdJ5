@@ -1,0 +1,129 @@
+[gd_scene load_steps=17 format=3 uid="uid://g2rt6uloy85b"]
+
+[ext_resource type="Script" uid="uid://dgqnlq16hqy0e" path="res://Scripts/InimigoR.cs" id="1_j8pj5"]
+[ext_resource type="Texture2D" uid="uid://b00wkle8rs5yu" path="res://Assets/inimigo/inimigo2/spr_inimigo2frenteanda1.PNG" id="2_46fgt"]
+[ext_resource type="Texture2D" uid="uid://bw6i7fb8v65nq" path="res://Assets/inimigo/inimigo2/spr_inimigo2frenteanda2.PNG" id="3_a1uj0"]
+[ext_resource type="Texture2D" uid="uid://djstu6u335f34" path="res://Assets/inimigo/inimigo2/spr_inimigo2frenteanda3.PNG" id="4_qmyys"]
+[ext_resource type="Texture2D" uid="uid://c5rfyq0w8x4bs" path="res://Assets/inimigo/inimigo2/spr_inimigo2trasanda1.PNG" id="5_nvq1g"]
+[ext_resource type="Texture2D" uid="uid://bm147mp7dbgsx" path="res://Assets/inimigo/inimigo2/spr_inimigo2trasanda2.PNG" id="6_mcct8"]
+[ext_resource type="Texture2D" uid="uid://gwxhsrk3w4bv" path="res://Assets/inimigo/inimigo2/spr_inimigo2trasanda3.PNG" id="7_8c1kt"]
+[ext_resource type="Texture2D" uid="uid://csnl2hesf5sc5" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoDanda1.PNG" id="8_k7qyo"]
+[ext_resource type="Texture2D" uid="uid://d3wdqupdicbsf" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoDanda2.PNG" id="9_6bu3o"]
+[ext_resource type="Texture2D" uid="uid://cfssqkrv28787" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoDanda3.PNG" id="10_pk6lw"]
+[ext_resource type="Texture2D" uid="uid://3wateyuy73yi" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoEanda1.PNG" id="11_yn57c"]
+[ext_resource type="Texture2D" uid="uid://nouoj1p8q5u" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoEanda2.PNG" id="12_cx0ep"]
+[ext_resource type="Texture2D" uid="uid://h0ifa2uw1e11" path="res://Assets/inimigo/inimigo2/spr_inimigo2ladoEanda3.PNG" id="13_0idso"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_duo5w"]
+size = Vector2(131.795, 133.333)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y60ay"]
+size = Vector2(257, 260)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihd5u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_46fgt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a1uj0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qmyys")
+}],
+"loop": true,
+"name": &"and_bai",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_nvq1g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mcct8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8c1kt")
+}],
+"loop": true,
+"name": &"and_cima",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_k7qyo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6bu3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_pk6lw")
+}],
+"loop": true,
+"name": &"and_dir",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_yn57c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_cx0ep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_0idso")
+}],
+"loop": true,
+"name": &"and_esq",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="InimigoR" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 32
+script = ExtResource("1_j8pj5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.500004, -0.999999)
+scale = Vector2(1.95, 1.95)
+shape = SubResource("RectangleShape2D_duo5w")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+simplify_path = true
+
+[node name="Hitobox" type="Area2D" parent="."]
+scale = Vector2(0.95, 0.95)
+collision_layer = 32
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitobox"]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_y60ay")
+debug_color = Color(0.826799, 0.396066, 0.0332859, 0.42)
+
+[node name="vendo" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-3, 3)
+scale = Vector2(8.6, 7.9)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -43)
+sprite_frames = SubResource("SpriteFrames_ihd5u")
+animation = &"and_esq"
+
+[node name="cooldownAtack" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="Hitobox" to="." method="_TomeiBala"]
+[connection signal="screen_exited" from="vendo" to="." method="_TrocaASala"]
+[connection signal="timeout" from="cooldownAtack" to="." method="_AtacarDenovo"]

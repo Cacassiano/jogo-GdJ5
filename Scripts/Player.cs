@@ -14,6 +14,10 @@ public partial class Player : CharacterBody2D
         {
             GlobalPosition = w.markerGbP;
         }
+        else if(area is Dinheiro din)
+        {
+            getHit(din.Damage);
+        }
     }
 
     [Export]
@@ -182,20 +186,28 @@ public partial class Player : CharacterBody2D
         QueueFree();
     }
 
+    private void getHit(int Damage)
+    {
+        GetNode<Timer>("imortal").Start();
+        SetCollisionLayerValue(6, false);
+        SetCollisionMaskValue(6, false);
+
+        GetNode<Area2D>("HITBOX").SetCollisionLayerValue(7, false);
+        GetNode<Area2D>("HITBOX").SetCollisionMaskValue(7, false);
+        GD.Print("Estou imortal");
+        TakeDamage(Damage);
+        imortal = true;
+        GD.Print("O inimigo atacou o jogador!");
+    }
     public void _hit(Node2D body)
     {
         if(!imortal && body is Inimigo inimigo)
         {
-            GetNode<Timer>("imortal").Start();
-            SetCollisionLayerValue(6, false);
-            SetCollisionMaskValue(6, false);
-
-            GetNode<Area2D>("HITBOX").SetCollisionLayerValue(7, false);
-            GetNode<Area2D>("HITBOX").SetCollisionMaskValue(7, false);
-            GD.Print("Estou imortal");
-            TakeDamage(inimigo.Damage);
-            imortal = true;
-            GD.Print("O inimigo atacou o jogador!");
+            getHit(inimigo.Damage);
+        }
+        else if(!imortal && body is Projetil projetil)
+        {
+            getHit(projetil.Damage);
         }
         
     }
@@ -205,8 +217,8 @@ public partial class Player : CharacterBody2D
         imortal = false;
         SetCollisionLayerValue(6, true);
         SetCollisionMaskValue(6, true);
-        GetNode<Area2D>("HITBOX").SetCollisionLayerValue(6, true);
-        GetNode<Area2D>("HITBOX").SetCollisionMaskValue(6, true);
+        GetNode<Area2D>("HITBOX").SetCollisionLayerValue(7, true);
+        GetNode<Area2D>("HITBOX").SetCollisionMaskValue(7, true);
         GD.Print("Não estou imortal");
     }
 

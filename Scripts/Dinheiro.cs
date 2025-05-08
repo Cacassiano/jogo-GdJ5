@@ -1,12 +1,10 @@
 using Godot;
 using System;
 
-public partial class Projetil : Area2D
+public partial class Dinheiro : Area2D
 {
-    public Vector2 mousePos;
+    public Vector2 pPos;
     public Vector2 direction;
-    private RayCast2D ray;
-
     public int Damage = 1;
     public void _BateuParede(Area2D area)
     {
@@ -17,11 +15,7 @@ public partial class Projetil : Area2D
     }
     public override void _Ready()
     {
-        direction = (mousePos - GlobalPosition).Normalized();
-
-        ray = GetNode<RayCast2D>("RayCast2D");
-        ray.TargetPosition = direction * 20;
-        ray.Enabled = true;
+        direction = (pPos - GlobalPosition).Normalized();
     }
 
 
@@ -29,20 +23,12 @@ public partial class Projetil : Area2D
     {
         
         this.Position += direction * 1000 * (float)delta;
-        if (ray.IsColliding())
-        {
-            var collider = ray.GetCollider();
-            if (collider is TileMapLayer)
-            {
-                QueueFree();
-            }
-        }
     }
 
 
     public void _BateuEntidade(Node2D body)
     {
-        if (body is Inimigo)
+        if (body is Player)
         {
             QueueFree();
         }

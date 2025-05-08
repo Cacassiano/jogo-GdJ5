@@ -1,22 +1,21 @@
 using Godot;
 using System;
 
-public partial class Inimigo : CharacterBody2D
+public partial class InimigoR : CharacterBody2D
 {
-
-
-    public int id = 1;
+    public int id = 2;
     public String sala;
     [Export]
     public float DistanciaMinimaParaMovimentar = 50f;
     [Export]
     public Vector2 knockback = Vector2.Zero;
-    public int Speed = 575;
+    public int Speed = 750;
     [Export]
     public float RunMulti = 1f;
     public CharacterBody2D PlayerScene{ get; set; }
     public Vector2 direction;
     public AnimatedSprite2D animacao;
+    private bool podeAtacar = true;
     public void _SetPlayerScene(CharacterBody2D player)
     {
         PlayerScene = player;
@@ -56,18 +55,42 @@ public partial class Inimigo : CharacterBody2D
         }
     }
 
-    public override void _Process(double delta)
+    private void shoot(Vector2 player)
     {
-        if (_player == null) return;
-
-        float distance = GlobalPosition.DistanceTo(_player.GlobalPosition);
+        GD.Print("Atirou!");
+        var projetil = (Dinheiro) GD.Load<PackedScene>("res://Cenas/dinheiro.tscn").Instantiate();
+        projetil.GlobalPosition = GlobalPosition;
+        projetil.pPos = player;
+        GetParent().AddChild(projetil);
+        podeAtacar = false;
+        GetNode<Timer>("cooldownAtack").Start();
     }
+
+    public void _AtacarDenovo()
+    {
+        podeAtacar = true;  
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         
         agent.TargetPosition = PlayerScene.GlobalPosition;
         Vector2 direcao = GlobalPosition.DirectionTo(agent.GetNextPathPosition());
         
+        var dirH = horizontalDir(direcao);
+        var dirV = verticalDir(direcao);
+
+        String animation = "";
+        if(Math.Abs(direction.X) < Math.Abs(direction.Y))
+        {
+            direcao.Y = -direcao.Y;
+            animation = "and" + dirV;
+        }
+        else
+        {
+            direcao.X = -direcao.X;
+            animation = "and" + dirH;
+        }
         if(knockback != Vector2.Zero)
         {
             this.Velocity = knockback * Speed * 1.5f;
@@ -78,20 +101,12 @@ public partial class Inimigo : CharacterBody2D
             direction = direcao * Speed  * RunMulti;    
             this.Velocity = direction;
         }
-        var dirH = horizontalDir(direcao);
-        var dirV = verticalDir(direcao);
-
-        String animation = "";
-        if(Math.Abs(direction.X) < Math.Abs(direction.Y))
-        {
-            animation = "and" + dirV;
-        }
-        else
-        {
-            animation = "and" + dirH;
-        }
         
         animacao.Animation = animation;
+        if(podeAtacar)
+        {
+            shoot(PlayerScene.GlobalPosition);
+        }
         animacao.Play();
         RunMulti = 1f;
         MoveAndSlide(); 
@@ -139,3 +154,6 @@ public partial class Inimigo : CharacterBody2D
     
 
 }
+
+
+

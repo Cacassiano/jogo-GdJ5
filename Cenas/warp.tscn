@@ -16,4 +16,4 @@ shape = SubResource("RectangleShape2D_iixeo")
 metadata/_edit_lock_ = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(-999, 1)
+position = Vector2(-490, 1)
