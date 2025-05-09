@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://3d5d5yo4cind"]
+[gd_scene load_steps=10 format=3 uid="uid://ycn54nm8xui5"]
 
-[ext_resource type="Script" uid="uid://dcfknrpw5aypr" path="res://Scripts/TitleScreen.cs" id="1_147ya"]
-[ext_resource type="Texture2D" uid="uid://ojgtmvbakvvx" path="res://Assets/Menu/menu.PNG" id="2_jtjwa"]
-[ext_resource type="Texture2D" uid="uid://6jaaagvigmp" path="res://Assets/Menu/44 Sem Título_20250508212058.png" id="3_l05ng"]
-[ext_resource type="Texture2D" uid="uid://di1icpnoyac2g" path="res://Assets/Menu/file_00000000cf1061f78f3d2d8465a3a062_conversation_id=6802d7ef-7fec-8002-8c93-d9167dbcd666&message_id=987b2f53-542f-41c1-b108-dedf5e55df05.png" id="4_rv274"]
-[ext_resource type="Theme" uid="uid://g67d5xpd338t" path="res://Assets/Menu/button.tres" id="5_6un67"]
-[ext_resource type="AudioStream" uid="uid://jxjfmgry10v5" path="res://-ambient-236809.mp3" id="6_jtjwa"]
+[ext_resource type="Script" uid="uid://b20itgeftr7ms" path="res://TitleScreen.cs" id="1_hafda"]
+[ext_resource type="Texture2D" uid="uid://ojgtmvbakvvx" path="res://menu.PNG" id="2_jtjwa"]
+[ext_resource type="Texture2D" uid="uid://6jaaagvigmp" path="res://Menu/44 Sem Título_20250508212058.png" id="3_l05ng"]
+[ext_resource type="Texture2D" uid="uid://dax064nlxa7lo" path="res://ALT+F4.png" id="4_tpml5"]
+[ext_resource type="Theme" uid="uid://g67d5xpd338t" path="res://Menu/button.tres" id="5_6un67"]
+[ext_resource type="AudioStream" uid="uid://cw8xw41mhowj7" path="res://-ambient-236809.mp3" id="6_tpml5"]
 
 [sub_resource type="Animation" id="Animation_147ya"]
 length = 5.011
@@ -159,7 +159,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_147ya")
+script = ExtResource("1_hafda")
 
 [node name="bg" type="TextureRect" parent="."]
 layout_mode = 1
@@ -194,7 +194,7 @@ offset_right = 10000.0
 offset_bottom = 114.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_rv274")
+texture = ExtResource("4_tpml5")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -224,10 +224,10 @@ layout_mode = 2
 theme = ExtResource("5_6un67")
 text = "JOGAR"
 
-[node name="Creditos" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Historia" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_6un67")
-text = "CREDITOS"
+text = "HISTÓRIA"
 
 [node name="Sair" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -246,11 +246,12 @@ libraries = {
 }
 autoplay = "RESET"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_jtjwa")
-volume_db = 6.559
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_tpml5")
+volume_db = 1.0
 autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Creditos" to="." method="_on_creditos_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Historia" to="." method="_on_creditos_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Sair" to="." method="_on_sair_pressed"]

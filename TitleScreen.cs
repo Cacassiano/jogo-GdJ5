@@ -9,7 +9,7 @@ public partial class TitleScreen : Control
     }
    public void _on_creditos_pressed()
     {
-        GD.Print("Creditos pressed");
+        GetTree().ChangeSceneToFile("res://Cenas/historia.tscn");
     }
     public void _on_sair_pressed()
     {
