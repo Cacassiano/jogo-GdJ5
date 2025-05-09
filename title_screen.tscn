@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://3d5d5yo4cind"]
+[gd_scene load_steps=10 format=3 uid="uid://3d5d5yo4cind"]
 
 [ext_resource type="Script" uid="uid://dcfknrpw5aypr" path="res://Scripts/TitleScreen.cs" id="1_147ya"]
-[ext_resource type="Texture2D" uid="uid://ojgtmvbakvvx" path="res://Menu/menu.PNG" id="2_jtjwa"]
-[ext_resource type="Texture2D" uid="uid://6jaaagvigmp" path="res://Menu/44 Sem Título_20250508212058.png" id="3_l05ng"]
-[ext_resource type="Texture2D" uid="uid://di1icpnoyac2g" path="res://Menu/file_00000000cf1061f78f3d2d8465a3a062_conversation_id=6802d7ef-7fec-8002-8c93-d9167dbcd666&message_id=987b2f53-542f-41c1-b108-dedf5e55df05.png" id="4_rv274"]
-[ext_resource type="Theme" uid="uid://g67d5xpd338t" path="res://Menu/button.tres" id="5_6un67"]
+[ext_resource type="Texture2D" uid="uid://ojgtmvbakvvx" path="res://Assets/Menu/menu.PNG" id="2_jtjwa"]
+[ext_resource type="Texture2D" uid="uid://6jaaagvigmp" path="res://Assets/Menu/44 Sem Título_20250508212058.png" id="3_l05ng"]
+[ext_resource type="Texture2D" uid="uid://di1icpnoyac2g" path="res://Assets/Menu/file_00000000cf1061f78f3d2d8465a3a062_conversation_id=6802d7ef-7fec-8002-8c93-d9167dbcd666&message_id=987b2f53-542f-41c1-b108-dedf5e55df05.png" id="4_rv274"]
+[ext_resource type="Theme" uid="uid://g67d5xpd338t" path="res://Assets/Menu/button.tres" id="5_6un67"]
+[ext_resource type="AudioStream" uid="uid://jxjfmgry10v5" path="res://-ambient-236809.mp3" id="6_jtjwa"]
 
 [sub_resource type="Animation" id="Animation_147ya"]
 length = 5.011
@@ -244,6 +245,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_jtjwa")
 }
 autoplay = "RESET"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_jtjwa")
+volume_db = 6.559
+autoplay = true
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Creditos" to="." method="_on_creditos_pressed"]
