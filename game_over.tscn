@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2tbkvwk6cw1f"]
+
+[ext_resource type="Texture2D" uid="uid://djfxpc4jeetr3" path="res://Menu/44 Sem Título_20250508214722.png" id="1_ck3gm"]
+[ext_resource type="Script" uid="uid://cms5c474geeym" path="res://Scripts/GameOver.cs" id="1_jspku"]
+[ext_resource type="Theme" uid="uid://g67d5xpd338t" path="res://Menu/button.tres" id="2_jspku"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_jspku")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 22.0
+offset_top = 273.0
+offset_right = 1365.0
+offset_bottom = 485.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ck3gm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.5
+offset_top = 50.0
+offset_right = 513.5
+offset_bottom = 316.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TentarNvm" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_jspku")
+text = "TENTAR NOVAMENTE"
+
+[node name="sair2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_jspku")
+text = "SAIR"
+
+[connection signal="pressed" from="VBoxContainer/TentarNvm" to="." method="_on_tentar_nvm_pressed"]
+[connection signal="pressed" from="VBoxContainer/sair2" to="." method="_on_sair_2_pressed"]
